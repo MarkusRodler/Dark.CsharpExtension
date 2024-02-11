@@ -1,0 +1,125 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "test (msbuild)",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "msbuild",
+                "Test",
+                "/t:testmsbuild",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": "$msCompile",
+            "options": {
+                "statusbar": {
+                    "label": "$(beaker) test (msbuild)"
+                }
+            }
+        },
+        {
+            "label": "test (vstest)",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "msbuild",
+                "Test",
+                "/t:testvstest",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": "$msCompile",
+            "options": {
+                "statusbar": {
+                    "label": "$(beaker) test (vstest)"
+                }
+            }
+        },
+        {
+            "label": "watch test (msbuild)",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "--project",
+                "Test",
+                "msbuild",
+                "/t:testmsbuild",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": "$msCompile",
+            "options": {
+                "statusbar": {
+                    "label": "$(beaker) watch test (msbuild)"
+                }
+            }
+        },
+        {
+            "label": "watch test (vstest)",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "--project",
+                "Test",
+                "msbuild",
+                "/t:testvstest",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": "$msCompile",
+            "options": {
+                "statusbar": {
+                    "label": "$(beaker) watch test (vstest)"
+                }
+            }
+        }
+    ]
+}

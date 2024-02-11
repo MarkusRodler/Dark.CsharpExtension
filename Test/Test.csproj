@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>12.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Dark.CsharpExtension\Dark.CsharpExtension.csproj" />
+        <PackageReference Include="coverlet.collector" Version="6.0.0" />
+        <PackageReference Include="coverlet.msbuild" Version="6.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+        <PackageReference Include="Moq" Version="4.20.70" />
+        <PackageReference Include="MSTest.TestAdapter" Version="3.2.0" />
+        <PackageReference Include="MSTest.TestFramework" Version="3.2.0" />
+    </ItemGroup>
+
+    <Target Name="testmsbuild">
+        <Exec Command="dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura" />
+        <Exec Command="dotnet reportgenerator &quot;-reports:coverage.cobertura.xml&quot; &quot;-targetdir:Coverage&quot; -reporttypes:HTML;" />
+        <Delete Files="coverage.cobertura.xml" />
+        <RemoveDir Directories="TestResults" Condition="Exists('TestResults')" />
+    </Target>
+
+    <Target Name="testvstest">
+        <RemoveDir Directories="TestResults" Condition="Exists('TestResults')" />
+        <Exec Command="dotnet test --collect:&quot;XPlat Code Coverage;Format=cobertura&quot;" />
+        <Exec Command="dotnet reportgenerator &quot;-reports:TestResults/*/coverage.cobertura.xml&quot; &quot;-targetdir:Coverage&quot; -reporttypes:HTML;" />
+        <RemoveDir Directories="TestResults" Condition="Exists('TestResults')" />
+    </Target>
+
+</Project>

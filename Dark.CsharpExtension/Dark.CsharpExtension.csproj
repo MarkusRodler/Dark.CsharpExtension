@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>12.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <PackageId>Dark.CsharpExtension</PackageId>
+        <Authors>Markus Rodler</Authors>
+        <Company>Dark</Company>
+        <PackageDescription>This package extends C# projects with various improvements</PackageDescription>
+        <RepositoryUrl>https://github.com/MarkusRodler/Dark.Console</RepositoryUrl>
+        <IsTrimmable>true</IsTrimmable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MSTest.TestFramework" Version="3.2.0" />
+    </ItemGroup>
+
+</Project>
