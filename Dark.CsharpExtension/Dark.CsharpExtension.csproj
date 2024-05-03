@@ -10,11 +10,17 @@
         <Company>Dark</Company>
         <PackageDescription>This package extends C# projects with various improvements</PackageDescription>
         <RepositoryUrl>https://github.com/MarkusRodler/Dark.Console</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>LGPL-2.1-only</PackageLicenseExpression>
         <IsTrimmable>true</IsTrimmable>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="MSTest.TestFramework" Version="3.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.md" pack="true" PackagePath="." />
     </ItemGroup>
 
 </Project>
