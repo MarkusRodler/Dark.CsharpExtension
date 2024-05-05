@@ -9,7 +9,7 @@
         <Authors>Markus Rodler</Authors>
         <Company>Dark</Company>
         <PackageDescription>This package extends C# projects with various improvements</PackageDescription>
-        <RepositoryUrl>https://github.com/MarkusRodler/Dark.Console</RepositoryUrl>
+        <RepositoryUrl>https://github.com/MarkusRodler/Dark.CsharpExtension</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>LGPL-2.1-only</PackageLicenseExpression>
         <IsTrimmable>true</IsTrimmable>
