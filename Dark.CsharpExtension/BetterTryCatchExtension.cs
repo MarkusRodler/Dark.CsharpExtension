@@ -3,6 +3,18 @@ namespace Dark.CsharpExtension;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Benennungsstile", Justification = "Does make more sense in this case")]
 public static class BetterTryCatchExtension
 {
+    public static void Try<T>(Action action, Action<T> catchException) where T : Exception
+    {
+        try
+        {
+            action();
+        }
+        catch (T exception)
+        {
+            catchException(exception);
+        }
+    }
+
     public static Task Catch<E>(this Task task, Action<E> action) where E : Exception
     {
         if (task.Exception?.InnerException is null or not E) return task;

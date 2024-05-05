@@ -17,16 +17,4 @@ public static class ConditionalExtension
             throw exception;
         }
     }
-
-    public static void Try<T>(Action action, Action<T> catchException) where T : Exception
-    {
-        try
-        {
-            action();
-        }
-        catch (T exception)
-        {
-            catchException(exception);
-        }
-    }
 }

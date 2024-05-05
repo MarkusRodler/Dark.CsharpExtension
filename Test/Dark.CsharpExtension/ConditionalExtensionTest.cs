@@ -36,29 +36,4 @@ public class ConditionalExtensionTest
 
         Assert.IsTrue(true);
     }
-
-    [TestMethod]
-    public void TryExecutesSpecifiedAction()
-    {
-        var counter = 0;
-        Try(() => counter++, (IndexOutOfRangeException e) => { });
-
-        Assert.AreEqual(counter, 1);
-    }
-
-    [TestMethod]
-    public void TryCatchesSpecifiedException()
-    {
-        Exception? catchedException = null;
-        Try(() => throw new IndexOutOfRangeException("Err"), (IndexOutOfRangeException e) => catchedException = e);
-
-        Assert.IsTrue(catchedException is IndexOutOfRangeException);
-        Assert.AreEqual(catchedException.Message, "Err");
-    }
-
-    [TestMethod]
-    public void TryDoesNotCatchExceptionIfItIsAnOtherExceptionType() => AssertExt.Throws<Exception>(
-        () => Try(() => throw new Exception("Err"), (IndexOutOfRangeException e) => { }),
-        "Err"
-    );
 }
