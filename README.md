@@ -81,3 +81,18 @@ public class AssertExtTest
     );
 }
 ```
+
+### DelegatingHandlers
+https://github.com/rmandvikar/delegating-handlers/tree/main also has a bunch of additional handlers
+
+#### SuccessingHandler (useful to test DelegatingHandler)
+```csharp
+    SucceedingHandler succeedingHandler = new(new StringContent("Response content"))
+    using HttpMessageInvoker invoker = new(succeedingHandler);
+```
+
+#### ThrowingHandler (useful to test DelegatingHandler)
+```csharp
+    ThrowingHandler throwingHandler = new(new ArgumentNullException("Argument null?"));
+    using HttpMessageInvoker invoker = new(throwingHandler);
+```
