@@ -1,5 +1,5 @@
 # Dark.CsharpExtension (Library)
-![Library](https://github.com/MarkusRodler/Dark.CsharpExtension/workflows/.NET/badge.svg)
+![Library](https://github.com/MarkusRodler/Dark.CsharpExtension/workflows/Library/badge.svg)
 
 ## How to use
 

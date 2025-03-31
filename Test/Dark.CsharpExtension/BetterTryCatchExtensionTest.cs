@@ -1,5 +1,3 @@
-using Dark.CsharpExtension;
-
 namespace Test;
 
 [TestClass]
@@ -11,7 +9,7 @@ public class BetterTryCatchExtensionTest
         var counter = 0;
         Try(() => counter++, (IndexOutOfRangeException e) => { });
 
-        Assert.AreEqual(counter, 1);
+        Assert.AreEqual(1, counter);
     }
 
     [TestMethod]
@@ -21,7 +19,7 @@ public class BetterTryCatchExtensionTest
         Try(() => throw new IndexOutOfRangeException("Err"), (IndexOutOfRangeException e) => catchedException = e);
 
         Assert.IsTrue(catchedException is IndexOutOfRangeException);
-        Assert.AreEqual(catchedException.Message, "Err");
+        Assert.AreEqual("Err", catchedException.Message);
     }
 
     [TestMethod]

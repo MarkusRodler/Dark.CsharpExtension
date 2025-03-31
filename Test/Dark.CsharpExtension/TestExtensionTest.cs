@@ -3,6 +3,13 @@ namespace Test;
 [TestClass]
 public class AssertExtTest
 {
+    [TestInitialize]
+    public void Initialize()
+    {
+        Thread.CurrentThread.CurrentCulture = new("en-US");
+        Thread.CurrentThread.CurrentUICulture = new("en-US");
+    }
+
     [TestMethod]
     public async Task ThrowsChecksIfTheActionThrowsTheSpecifiedException()
     {
@@ -20,7 +27,7 @@ public class AssertExtTest
 
     [TestMethod]
     public async Task ThrowsThrowsAnAssertFailedExceptionIfItDoesNotMatch()
-        => await Assert.ThrowsExceptionAsync<AssertFailedException>(
+        => await Assert.ThrowsExactlyAsync<AssertFailedException>(
             async () => await AssertExt.Throws<IndexOutOfRangeException>(() => null!, "Index was out of range")
         );
 

@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <LangVersion>12.0</LangVersion>
+        <TargetFramework>net9.0</TargetFramework>
+        <LangVersion>13.0</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <PackageId>Dark.CsharpExtension</PackageId>
@@ -22,5 +22,10 @@
     <ItemGroup>
         <None Include="../README.md" pack="true" PackagePath="." />
     </ItemGroup>
+
+    <Target Name="PostClean" AfterTargets="Clean">
+        <RemoveDir Directories="$(BaseOutputPath)" /><!-- bin -->
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" /><!-- obj -->
+    </Target>
 
 </Project>

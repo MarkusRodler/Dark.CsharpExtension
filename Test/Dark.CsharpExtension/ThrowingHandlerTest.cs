@@ -10,18 +10,18 @@ public class ThrowingHandlerTest
 
         If(counter == 0, () => counter++);
 
-        Assert.AreEqual(counter, 1);
+        Assert.AreEqual(1, counter);
     }
 
     [TestMethod]
-    public void SendAsyncAlwaysThrowsSpecifiedException()
+    public async Task SendAsyncAlwaysThrowsSpecifiedException()
     {
         ThrowingHandler throwingHandler = new(new ArgumentNullException("Argument null?"));
         using HttpMessageInvoker invoker = new(throwingHandler);
 
-        var ex = AssertExt.Throws<ArgumentNullException>(
+        await AssertExt.Throws<ArgumentNullException>(
             () => invoker.SendAsync(new HttpRequestMessage(), CancellationToken.None),
-            "Argument null?"
+            "Value cannot be null. (Parameter 'Argument null?')"
         );
     }
 }

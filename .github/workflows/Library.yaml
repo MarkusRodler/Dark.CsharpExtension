@@ -1,0 +1,68 @@
+name: Library
+
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - .github/dependabot.yml
+      - .vscode/**
+      - .editorconfig
+      - .gitignore
+  pull_request:
+    paths-ignore:
+      - .github/dependabot.yml
+      - .vscode/**
+      - .editorconfig
+      - .gitignore
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  library:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4.3.1
+        with:
+          dotnet-version: 9.0
+
+      - name: Lint dotnet
+        run: dotnet format --verify-no-changes --verbosity detailed
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Test
+        run: |
+          dotnet run --project Test
+          dotnet coverlet artifacts/bin/Test/debug/Test.dll \
+            --target='dotnet' \
+            --targetargs='run --project Test --no-build' \
+            --format=cobertura \
+            --threshold=100 \
+            --exclude-by-file='**/*.sg.cs' '**/*.g.cs' \
+            >> $GITHUB_STEP_SUMMARY
+
+      - name: Pack
+        run: |
+          TAG=$(date +%Y.%-m.%-d.)${{ github.run_number }}
+          REPOSITORYURL=${{ github.server_url }}/${{ github.repository }}
+          echo TAG=$TAG
+          echo REPOSITORYURL=$REPOSITORYURL
+          dotnet pack -p:PackageVersion=$TAG -p:RepositoryUrl=$REPOSITORYURL
+
+      - name: Publish
+        if: github.event_name == 'push' && !github.event.dryrun
+        run: |
+          dotnet nuget push artifacts/package/release/*.nupkg \
+            --api-key ${{ github.token }} \
+            --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
+            --skip-duplicate \
+            --no-symbols

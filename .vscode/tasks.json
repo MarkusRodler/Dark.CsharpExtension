@@ -2,13 +2,38 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "test (msbuild)",
+            "label": "clean",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "options": {
+                "statusbar": {
+                    "label": "$(trash) clean"
+                }
+            }
+        },
+        {
+            "label": "test",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "msbuild",
                 "Test",
-                "/t:testmsbuild",
+                "-t:testmsbuild",
+                "--tl:off",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -26,51 +51,19 @@
             "problemMatcher": "$msCompile",
             "options": {
                 "statusbar": {
-                    "label": "$(beaker) test (msbuild)"
+                    "label": "$(beaker) test"
                 }
             }
         },
         {
-            "label": "test (vstest)",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "msbuild",
-                "Test",
-                "/t:testvstest",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "echo": false,
-                "reveal": "always",
-                "panel": "dedicated",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "problemMatcher": "$msCompile",
-            "options": {
-                "statusbar": {
-                    "label": "$(beaker) test (vstest)"
-                }
-            }
-        },
-        {
-            "label": "watch test (msbuild)",
+            "label": "watch test",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "watch",
                 "--project",
                 "Test",
-                "msbuild",
-                "/t:testmsbuild",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--tl:off"
             ],
             "group": {
                 "kind": "test",
@@ -86,38 +79,29 @@
             "problemMatcher": "$msCompile",
             "options": {
                 "statusbar": {
-                    "label": "$(beaker) watch test (msbuild)"
+                    "label": "$(beaker) watch test"
                 }
             }
         },
         {
-            "label": "watch test (vstest)",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "--project",
-                "Test",
-                "msbuild",
-                "/t:testvstest",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
+            "label": "coverage",
+            "command": "explorer.exe index.html; exit 0",
+            "type": "shell",
             "group": {
                 "kind": "test",
-                "isDefault": true
+                "isDefault": false
             },
             "presentation": {
                 "echo": false,
-                "reveal": "always",
-                "panel": "dedicated",
+                "reveal": "never",
+                "panel": "shared",
                 "showReuseMessage": false,
                 "clear": true
             },
-            "problemMatcher": "$msCompile",
             "options": {
+                "cwd": "${workspaceFolder}/Test/Coverage/",
                 "statusbar": {
-                    "label": "$(beaker) watch test (vstest)"
+                    "label": "$(beaker) coverage"
                 }
             }
         }

@@ -6,6 +6,8 @@
     "editor.rulers": [
         120
     ],
+    "files.autoSave": "onFocusChange",
+    "files.autoSaveWhenNoErrors": true,
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
     "files.trimFinalNewlines": true,
@@ -14,5 +16,6 @@
         "**/artifacts": true
     },
     "git.rebaseWhenSync": true,
-    "omnisharp.enableEditorConfigSupport": true
+    "omnisharp.enableEditorConfigSupport": true,
+    "omnisharp.enableRoslynAnalyzers": true
 }

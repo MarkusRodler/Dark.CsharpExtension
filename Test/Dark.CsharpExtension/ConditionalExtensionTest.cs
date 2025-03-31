@@ -10,7 +10,7 @@ public class ConditionalExtensionTest
 
         If(counter == 0, () => counter++);
 
-        Assert.AreEqual(counter, 1);
+        Assert.AreEqual(1, counter);
     }
 
     [TestMethod]
@@ -20,7 +20,7 @@ public class ConditionalExtensionTest
 
         If(counter == 1, () => counter++);
 
-        Assert.AreEqual(counter, 0);
+        Assert.AreEqual(0, counter);
     }
 
     [TestMethod]
@@ -31,9 +31,5 @@ public class ConditionalExtensionTest
 
     [TestMethod]
     public void EnsureDoesNothingIfConditionIsNotMet()
-    {
-        Ensure(false, new IndexOutOfRangeException("Index was out of range"));
-
-        Assert.IsTrue(true);
-    }
+        => Ensure(false, new IndexOutOfRangeException("Index was out of range"));
 }

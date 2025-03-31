@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: "⬆"
     assignees:
       - "MarkusRodler"
 
@@ -11,5 +13,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: "⬆"
     assignees:
       - "MarkusRodler"

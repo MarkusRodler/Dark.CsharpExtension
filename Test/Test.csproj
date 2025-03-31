@@ -1,34 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <LangVersion>12.0</LangVersion>
+        <TargetFramework>net9.0</TargetFramework>
+        <LangVersion>13.0</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <EnableMSTestRunner>true</EnableMSTestRunner>
+        <OutputType>Exe</OutputType>
+        <MSTestAnalysisMode>All</MSTestAnalysisMode>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Dark.CsharpExtension\Dark.CsharpExtension.csproj" />
-        <PackageReference Include="coverlet.collector" Version="6.0.4" />
-        <PackageReference Include="coverlet.msbuild" Version="6.0.4" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
         <PackageReference Include="Moq" Version="4.20.72" />
-        <PackageReference Include="MSTest.TestAdapter" Version="3.8.2" />
-        <PackageReference Include="MSTest.TestFramework" Version="3.8.2" />
+        <PackageReference Include="MSTest" Version="3.8.3" />
     </ItemGroup>
 
     <Target Name="testmsbuild">
-        <Exec Command="dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura" />
-        <Exec Command="dotnet reportgenerator &quot;-reports:coverage.cobertura.xml&quot; &quot;-targetdir:Coverage&quot; -reporttypes:HTML;" />
+        <Exec Command="dotnet run" />
+        <Exec Command="dotnet coverlet ../artifacts/bin/Test/debug/Test.dll --target=&quot;dotnet&quot; --targetargs=&quot;run --no-build&quot; --format=cobertura --exclude-by-file=&quot;**/*.sg.cs&quot; &quot;**/*.g.cs&quot;" />
+        <Exec Command="dotnet reportgenerator -reports:coverage.cobertura.xml -targetdir:Coverage -reporttypes:HTML" />
         <Delete Files="coverage.cobertura.xml" />
-        <RemoveDir Directories="TestResults" Condition="Exists('TestResults')" />
     </Target>
 
-    <Target Name="testvstest">
-        <RemoveDir Directories="TestResults" Condition="Exists('TestResults')" />
-        <Exec Command="dotnet test --collect:&quot;XPlat Code Coverage;Format=cobertura&quot;" />
-        <Exec Command="dotnet reportgenerator &quot;-reports:TestResults/*/coverage.cobertura.xml&quot; &quot;-targetdir:Coverage&quot; -reporttypes:HTML;" />
-        <RemoveDir Directories="TestResults" Condition="Exists('TestResults')" />
+    <Target Name="PostClean" AfterTargets="Clean">
+        <RemoveDir Directories="$(BaseOutputPath)" /><!-- bin -->
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" /><!-- obj -->
     </Target>
 
 </Project>
