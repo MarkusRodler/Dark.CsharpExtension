@@ -1,0 +1,4 @@
+<Solution>
+    <Project Path="Dark.CsharpExtension/Dark.CsharpExtension.csproj" />
+    <Project Path="Test/Test.csproj" />
+</Solution>
